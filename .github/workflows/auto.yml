@@ -1,9 +1,8 @@
-name: Monthly Python Script
+name: Hourly Python Script
 
 on:
   schedule:
-    # - cron: '0 0 1 * *' # Runs at 00:00 on the 1st of every month
-    - cron: '0 * * * *' # Runs every hour
+    - cron: '0 * * * *' # Runs at the start of every hour
 
 jobs:
   run-script:
@@ -25,7 +24,7 @@ jobs:
 
     - name: Run Python script
       env:
-        testkey: ${{ secrets.DONALOCA }}
+        actkey: ${{ secrets.DONALOCA }}
       run: |
         python scripts/library_updates.py
 
