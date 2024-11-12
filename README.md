@@ -72,3 +72,4 @@ Just in case you get an error, check the filepath where the files are being save
 
 - [] Another posible updates like Monetary Policy Reports, Surveys, Press Reports, Stability Reports, etc.
 - [] workflows for automatic downloads and updates.
+- [] Anual compilation reports.
