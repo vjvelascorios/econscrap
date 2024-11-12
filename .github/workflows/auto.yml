@@ -30,19 +30,34 @@ jobs:
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
       run: python scripts/library_updates.py
     
+    - name: Upload Library Updates Artifacts
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
+      uses: actions/upload-artifact@v3
+      with:
+        name: library-updates
+        path: 'reports and files/banxico_library_updates/'
+    
     - name: Run Quarterly Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
       run: python "scripts/informes trimestrales.py"
+    
+    - name: Upload Quarterly Reports Artifacts
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
+      uses: actions/upload-artifact@v3
+      with:
+        name: quarterly-reports
+        path: 'reports and files/banxico_quarterly_reports/'
     
     - name: Run Regional Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
       run: python "scripts/informes regionales.py"
     
-    - name: Upload artifacts
+    - name: Upload Regional Reports Artifacts
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
       uses: actions/upload-artifact@v3
       with:
-        name: banxico-reports
-        path: 'reports and files/'
+        name: regional-reports
+        path: 'reports and files/banxico_regional_reports/'
     
     - name: Commit and push changes
       run: |
