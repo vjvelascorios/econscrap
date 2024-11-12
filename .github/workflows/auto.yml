@@ -5,9 +5,9 @@ on:
   push:
     branches: [ main ]   
   schedule:
-    - cron: '0 0 3 * *'         # Library updates - 3rd of each month
-    - cron: '0 0 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months
-    - cron: '0 0 11-15 */3 *'   # Regional reports - 11th-15th every 3 months
+    - cron: '0 6 3 * *'         # Library updates - 3rd of each month at 00:00 Mexico time (06:00 UTC)
+    - cron: '0 6 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months at 00:00 Mexico time
+    - cron: '0 6 11-15 */3 *'   # Regional reports - 11th-15th every 3 months at 00:00 Mexico time
 
 jobs:
   banxico-reports:
