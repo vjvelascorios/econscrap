@@ -5,26 +5,36 @@ on:
   push:
     branches: [ main ]   
   schedule:
-    - cron: '0 6 3 * *'         # Library updates - 3rd of each month at 00:00 Mexico time (06:00 UTC)
-    - cron: '0 6 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months at 00:00 Mexico time
-    - cron: '0 6 11-15 */3 *'   # Regional reports - 11th-15th every 3 months at 00:00 Mexico time
+    # All times adjusted to UTC (Mexico City is UTC-6)
+    - cron: '0 6 3 * *'         # Library updates - 3rd of each month
+    - cron: '0 6 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months
+    - cron: '0 6 11-15 */3 *'   # Regional reports - 11th-15th every 3 months
 
 jobs:
   banxico-reports:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # Add timeout protection
+    
     permissions:
       contents: write
     
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
     
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
+        cache: 'pip'  # Enable dependency caching
     
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      continue-on-error: false
     
     - name: Run Library Updates
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
