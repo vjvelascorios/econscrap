@@ -47,20 +47,20 @@ jobs:
         name: library-updates
         path: 'reports and files/banxico_library_updates/'
 
-      - name: Run private sector expectations
+    - name: Run private sector expectations
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
       run: python scripts/private_sector_expectations-monthly.py
   
-      - name: Upload Private Sector Expectations Artifacts
+    - name: Upload Private Sector Expectations Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
       uses: actions/upload-artifact@v4
       with:
         name: private_sector_expectations-updates
         path: 'reports and files/private_sector_expectations/'
 
-      - name: Run Quarterly Reports
+    - name: Run Quarterly Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
-      run: python "scripts/quarterly_reports-quarter.py"
+      run: python scripts/quarterly_reports-quarter.py
     
     - name: Upload Quarterly Reports Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
