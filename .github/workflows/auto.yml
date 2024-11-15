@@ -28,7 +28,7 @@ jobs:
     
     - name: Run Library Updates
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
-      run: python scripts/library_updates.py
+      run: python scripts/library_updates-monthly.py
     
     - name: Upload Library Updates Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
@@ -39,7 +39,7 @@ jobs:
     
     - name: Run Quarterly Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
-      run: python "scripts/informes trimestrales.py"
+      run: python "scripts/quarterly_reports-quarter.py"
     
     - name: Upload Quarterly Reports Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
@@ -50,7 +50,7 @@ jobs:
     
     - name: Run Regional Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
-      run: python "scripts/informes regionales.py"
+      run: python "scripts/regional_reports-quarter"
     
     - name: Upload Regional Reports Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
