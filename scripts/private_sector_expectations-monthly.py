@@ -436,3 +436,40 @@ config = ScrapingConfig(
 )
 
 df = scrape_banxico_reports_optimized(quarterly_url, report_type="quarterly", config=config)
+
+import os
+from pathlib import Path
+
+# Define base paths as constants
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__))).parent
+REPORTS_DIR = BASE_DIR / "reports and files" / "private_sector_expectations"
+
+@dataclass
+class PathConfig:
+    base_dir: Path = REPORTS_DIR
+    
+    def __post_init__(self):
+        # Ensure only the correct directory exists
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+        
+    def get_file_path(self, filename: str) -> Path:
+        return self.base_dir / filename
+
+def setup_directories():
+    """Initialize directory structure"""
+    try:
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        logging.info(f"Directory structure verified at {REPORTS_DIR}")
+    except Exception as e:
+        logging.error(f"Failed to create directory structure: {e}")
+        raise
+
+# Add this at the start of your main execution
+path_config = PathConfig()
+setup_directories()
+
+# When saving files, use:
+def save_file(content, filename):
+    file_path = path_config.get_file_path(filename)
+    with open(file_path, 'wb') as f:
+        f.write(content)

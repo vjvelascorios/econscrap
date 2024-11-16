@@ -64,18 +64,27 @@ jobs:
     
     - name: Upload Quarterly Reports Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Updated to v4
       with:
         name: quarterly-reports
         path: 'reports and files/banxico_quarterly_reports/'
     
+    - name: Commit and Push Changes
+      if: success()
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add "reports and files/*"
+        git commit -m "Update Banxico reports [skip ci]" || exit 0
+        git push
+    
     - name: Run Regional Reports
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
-      run: python "scripts/regional_reports-quarter"
+      run: python scripts/regional_reports-quarter.py
     
     - name: Upload Regional Reports Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: regional-reports
         path: 'reports and files/banxico_regional_reports/'
