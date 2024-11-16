@@ -5,9 +5,10 @@ A collection of scripts to automatically download reports from Banco de México 
 ## Features
 
 - Downloads multiple types of reports:
-  - Quarterly Reports ([`informes trimestrales.py`](scripts/informes%20trimestrales.py))
-  - Regional Reports ([`informes regionales.py`](scripts/informes%20regionales.py)) 
-  - Library updates ([`library_updates.py`](scripts/library_updates.py))
+  - Quarterly Reports ([`quarterly_reports-quarter.py`](scripts/quarterly_reports-quarter.py))
+  - Regional Reports ([`regional_reports-quarter.py`](scripts/regional_reports-quarter.py)) 
+  - Library updates ([`library_updates-monthly.py`](scripts/library_updates-monthly.py))
+  - Private Sector Expectations ([`private_sector_expectations-monthly.py`](scripts/private_sector_expectations-monthly.py))
 - Supports parallel downloads using threading
 - Organizes files by date and type
 - Handles retry logic for failed downloads
@@ -20,12 +21,13 @@ requests
 beautifulsoup4
 pandas
 pathlib
+tqdm
 ```
 
 ## Installation
 
 ```sh
-pip install requests beautifulsoup4 pandas pathlib
+pip install requests beautifulsoup4 pandas pathlib tqdm
 ```
 
 ## Usage
