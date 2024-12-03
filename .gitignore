@@ -1,2 +1,6 @@
 
 *.7z
+*.vsidx
+.vs/econscrap/v17/.suo
+*.bin
+*.pyproj
