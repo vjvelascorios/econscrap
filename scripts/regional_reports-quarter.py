@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import sleep
 
 # Define base path
-DEFAULT_BASE_PATH = r"C:\\Users\\vjvelascorios\\Desktop\\econscrap\\reports and files"
+DEFAULT_BASE_PATH = r"reports and files"
 
 def get_report_types():
     """Define mappings for regional report types"""

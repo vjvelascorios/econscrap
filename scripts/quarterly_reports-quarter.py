@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import sleep
 
 # Define base path
-DEFAULT_BASE_PATH = r"C:\\Users\\vjvelascorios\\Desktop\\econscrap\\reports and files"
+DEFAULT_BASE_PATH = r"reports and files"
 Path(DEFAULT_BASE_PATH).mkdir(parents=True, exist_ok=True)
 
 def extract_date_and_title(row):
