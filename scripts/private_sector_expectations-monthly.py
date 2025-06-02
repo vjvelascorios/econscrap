@@ -473,3 +473,19 @@ def save_file(content, filename):
     file_path = path_config.get_file_path(filename)
     with open(file_path, 'wb') as f:
         f.write(content)
+
+
+
+#there are some issues:
+# tarting parallel download with 10 workers
+# Main function error: download_pdf() missing 2 required positional arguments: 'filename' and 'base_path'
+# Script failed to execute properly
+# Starting download from: https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html
+# Download folder: /home/vjvelascorios/Documents/GitHub/econscrap/reports and files/private_sector_expectations/banxico_quarterly_reports
+# Found 316 rows in the table
+# Starting parallel download with 32 workers
+# Main function error: download_pdf() missing 2 required positional arguments: 'filename' and 'base_path'
+# 2025-06-01 22:42:03,248 - ERROR - No data was retrieved
+# 2025-06-01 22:42:03,249 - INFO - Directory structure verified at /home/vjvelascorios/Documents/GitHub/econscrap/reports and files/private_sector_expectations
+
+# [Done] exited with code=0 in 313.255 seconds
