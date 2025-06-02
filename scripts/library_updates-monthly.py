@@ -35,7 +35,7 @@ def scrape_library_updates(url=None, use_threading=True, max_workers=4):
         url = "https://www.banxico.org.mx/servicios/boletin-mensual-de-la-biblioteca-del-banco-de-mexi/boletin-mensual-biblioteca-pu.html"
 
     # Define and create base folder
-    local_folder = r"C:\\Users\\vjvelascorios\\Desktop\\econscrap\\reports and files\\banxico_library_updates"
+    local_folder = r"reports and files/banxico_library_updates"
     Path(local_folder).mkdir(parents=True, exist_ok=True)
     print(f"Saving files to: {local_folder}")
 
