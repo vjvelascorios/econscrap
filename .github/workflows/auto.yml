@@ -43,6 +43,10 @@ jobs:
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       run: python scripts/library_updates-monthly.py
     
+    - name: Rename Library PDFs
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
+      run: python auto_rename_library_pdfs.py
+    
     - name: Upload Library Updates Artifacts
       if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       uses: actions/upload-artifact@v4
