@@ -70,8 +70,49 @@ reports and files/
 
 Just in case you get an error, check the filepath where the files are being saved. You can change the path in the scripts.
 
+## GitHub Actions Automation
+
+This repository includes automated workflows that run on GitHub Actions to download reports automatically:
+
+### Schedule
+- **Library Updates**: 3rd of each month at 00:00 Mexico City time (06:00 UTC)
+- **Quarterly Reports**: 28th-29th of every 3rd month at 00:00 Mexico City time (06:00 UTC)  
+- **Regional Reports**: 11th-15th of every 3rd month at 00:00 Mexico City time (06:00 UTC)
+
+### Manual Execution
+You can also trigger the workflow manually from the GitHub Actions tab.
+
+### Troubleshooting
+
+If the GitHub Actions are not working:
+
+1. **Run Local Tests**: 
+   ```sh
+   python test_workflow.py
+   ```
+
+2. **Check Debug Information**:
+   ```sh 
+   python debug_workflow.py
+   ```
+
+3. **Common Issues**:
+   - Branch mismatch (ensure workflow uses 'master' not 'main')
+   - Schedule condition mismatch with cron expressions
+   - Missing dependencies in requirements.txt
+   - Incorrect file paths for artifacts
+
+### Recent Fixes
+
+- ✅ Fixed branch name from 'main' to 'master'
+- ✅ Fixed schedule condition times to match cron expressions
+- ✅ Added debug and test scripts for troubleshooting
+- ✅ Reorganized workflow steps for better execution order
+
 ## TODO
 
-- [] Another posible updates like Monetary Policy Reports, Surveys, Press Reports, Stability Reports, etc.
-- [] workflows for automatic downloads and updates.
-- [] Anual compilation reports.
+- [ ] Add Monetary Policy Reports, Surveys, Press Reports, Stability Reports, etc.
+- [x] Workflows for automatic downloads and updates
+- [ ] Annual compilation reports
+- [ ] Error notification system for failed downloads
+- [ ] Data validation and quality checks
