@@ -3,11 +3,11 @@ name: Banxico Reports Scraper
 on:
   workflow_dispatch:      # Manual trigger
   push:
-    branches: [ main ]   
+    branches: [ master ]   # Fixed: changed from 'main' to 'master'
   schedule:
     # All times adjusted to UTC (Mexico City is UTC-6)
     - cron: '0 6 3 * *'         # Library updates - 3rd of each month
-    - cron: '0 6 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months
+    - cron: '0 6 28,29 */3 *'   # Quarterly reports - 28th-29th every 3 months  
     - cron: '0 6 11-15 */3 *'   # Regional reports - 11th-15th every 3 months
 
 jobs:
@@ -36,60 +36,55 @@ jobs:
         pip install -r requirements.txt
       continue-on-error: false
     
+    - name: Debug workflow environment
+      run: python debug_workflow.py
+    
     - name: Run Library Updates
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       run: python scripts/library_updates-monthly.py
     
     - name: Upload Library Updates Artifacts
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       uses: actions/upload-artifact@v4
       with:
         name: library-updates
         path: 'reports and files/banxico_library_updates/'
 
     - name: Run private sector expectations
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       run: python scripts/private_sector_expectations-monthly.py
   
     - name: Upload Private Sector Expectations Artifacts
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 3 * *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 3 * *'
       uses: actions/upload-artifact@v4
       with:
         name: private_sector_expectations-updates
         path: 'reports and files/private_sector_expectations/'
 
     - name: Run Quarterly Reports
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 28,29 */3 *'
       run: python scripts/quarterly_reports-quarter.py
     
     - name: Upload Quarterly Reports Artifacts
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 28,29 */3 *'
-      uses: actions/upload-artifact@v4  # Updated to v4
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 28,29 */3 *'
+      uses: actions/upload-artifact@v4
       with:
         name: quarterly-reports
         path: 'reports and files/banxico_quarterly_reports/'
-    
-    - name: Commit and Push Changes
-      if: success()
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add "reports and files/*"
-        git commit -m "Update Banxico reports [skip ci]" || exit 0
-        git push
-    
+
     - name: Run Regional Reports
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 11-15 */3 *'
       run: python scripts/regional_reports-quarter.py
     
     - name: Upload Regional Reports Artifacts
-      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 0 11-15 */3 *'
+      if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 11-15 */3 *'
       uses: actions/upload-artifact@v4
       with:
         name: regional-reports
         path: 'reports and files/banxico_regional_reports/'
     
     - name: Commit and push changes
+      if: success()
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
